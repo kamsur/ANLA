@@ -4,17 +4,7 @@ import math
 def sign(x):
     abs_val=math.sqrt(np.real(x)**2+np.imag(x)**2)
     return x/abs_val if abs_val!=0 else 1
-'''
-def v_k(x):
-    if len(x.shape)>0:
-        sign_vk=sign(x[0])
-    else:
-        sign_vk=sign(x)
-    e = np.zeros(x.shape)
-    e[0]=1
-    vk=sign_vk*np.linalg.norm(x,2)*e+x
-    return vk/np.linalg.norm(vk,2) if np.linalg.norm(vk,2)!=0 else vk
-'''
+
 def implicit_qr(A):
     R = A.astype(complex)
     (m,n)=R.shape
@@ -39,12 +29,6 @@ def form_q(W):
     P = np.identity(m).astype(complex)
     for i in range(m):
         for j in range(n):
-            '''
-            e=np.zeros(m-j)
-            e[0]=1
-            y=e-((np.outer(W[j:,j],np.conj(W[j:,j]).T))*2)
-            P[j:,i] =np.matmul(y,P[j:,i])
-            '''
             P[j:,i] = P[j:,i]-((np.outer(W[j:,j],(W[j:,j]).T.conjugate()))*2)@P[j:,i]
     Q = P.T.conjugate()
     #TODO

@@ -36,7 +36,7 @@ def arnoldi_n(A, Q, P):
         h[j] = (Q[:,j].T.conjugate())@v
         v = v-h[j]*Q[:,j]
     h[n] = np.linalg.norm(v,2)
-    q = v/h[n] if h[n]!=0 else 0
+    q = v/h[n] if h[n]!=0 else v
     # todo
 
     return h, q
